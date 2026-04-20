@@ -1,4 +1,4 @@
-{% extends 'stat_pgs_tmpl/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}About Us{% endblock %}
 
@@ -14,4 +14,10 @@ We are learning how to build web apps using Python.
 
 {% block main %}
 <p>We run our three-month, part-time courses, tailoring them based on the technology needs <br>and demands of local employers to ensure our graduates are developing skills that will set them up for success in their local job market.</p>
+
+<hr>
+<h1>Hello, {{ user.username }}!</h1>
+<p>Welcome to your Contact page.</p>
+<br>
+<a href=""><button>Logout</button></a>
 {% endblock %}

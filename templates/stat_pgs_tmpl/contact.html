@@ -1,4 +1,4 @@
-{% extends 'stat_pgs_tmpl/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}Contact{% endblock %}
 
@@ -14,4 +14,10 @@
     {% endfor %}
   </li>
 </ol>
+
+<hr>
+<h1>Hello, {{ user.username }}!</h1>
+<p>Welcome to your Contact page.</p>
+<br>
+<a href="{% url 'accounts:logout' %}"><button>Logout</button></a>
 {% endblock %}
