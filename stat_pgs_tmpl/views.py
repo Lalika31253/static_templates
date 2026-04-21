@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
-@login_required(login_url='login')
+@login_required(login_url='/accounts/login/')
 def home(request):
     ctx = {
         "theme": "cupcake",
@@ -12,22 +12,25 @@ def home(request):
     }
     return render(request, 'home.html', ctx)
 
-@login_required(login_url='login')
-def contact(request):
-  ctx = {
-     "theme": "retro",
-     "medias": ["Facebook", "LinkedIn", "Instagram", "Telegram"]
-  }
-  return render(request, 'contact.html', ctx)
 
-@login_required(login_url='login')
+@login_required(login_url='/accounts/login/')
+def contact(request):
+    ctx = {
+        "theme": "retro",
+        "medias": ["Facebook", "LinkedIn", "Instagram", "Telegram"]
+    }
+    return render(request, 'contact.html', ctx)
+
+
+@login_required(login_url='/accounts/login/')
 def about(request):
     ctx = {
         "theme": "valentine"
     }
     return render(request, 'about.html', ctx)
 
-@login_required(login_url='login')
+
+@login_required(login_url='/accounts/login/')
 def news(request):
     ctx = {
         "theme": "caramellatte",

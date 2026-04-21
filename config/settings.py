@@ -56,9 +56,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR, 'templates',
-                 BASE_DIR / 'templates' / 'accounts', 
-                 BASE_DIR / 'templates' / 'stat_pgs_tmpl'], #modified
+        'DIRS': [BASE_DIR / 'templates' / 'accounts', BASE_DIR / 'templates' / 'stat_pgs_tmpl'], # mofied
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,7 +128,6 @@ STATICFILES_DIRS = [   #added
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#login path
-LOGIN_URL='/accounts/login'
+LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/accounts/dashboard/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
