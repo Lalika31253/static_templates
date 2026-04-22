@@ -1,29 +1,37 @@
-# 🚗 Django Static Pages with Templates + DaisyUI Themes
-📌 Overview
+# Django Combined Project — Static Pages with Templates + Authentication
 
-This project is a Django web application that demonstrates how to build multiple static pages using templates, a shared base layout, and DaisyUI themes.
+## 📌 Overview
 
-Each page uses:
+This project is a Django web application that demonstrates how to combine two projects into one: Static Pages with Templates + Authentication.
 
-A shared base.html template
-A different DaisyUI theme
-Dynamic context data passed from views
-Django template blocks and loops
+---
 
-## 🚀 Features
-4 pages:
- * Home
- * Contact
- * About
- * News
+## 🚀 Setup Instructions
 
-## Example
-### code
+### 1. Fork and clone the Static Pages with Templates repository
 
-config/settings.py
-```Python
-# Application definition
+```bash
+git clone <your-forked-repo-url>
+cd your-project
+```
 
+### 2. Copy the `accounts` app from the Authentication project
+
+```bash
+cp -r /path/to/original/accounts /path/to/new/project/accounts
+```
+
+### 3. Copy the HTML templates
+
+```bash
+cp /path/to/original/templates/login.html     templates/
+cp /path/to/original/templates/register.html  templates/
+cp /path/to/original/templates/dashboard.html templates/
+```
+
+### 4. Update `config/settings.py`
+
+```python
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -31,13 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'stat_pgs_tmpl', # added 
+    'stat_pgs_tmpl',
+    'accounts',  # added
 ]
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR, 'templates'], # modified
+        'DIRS': [
+            BASE_DIR / 'templates' / 'accounts',
+            BASE_DIR / 'templates' / 'stat_pgs_tmpl',],  # modified
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -50,145 +61,61 @@ TEMPLATES = [
     },
 ]
 
-STATIC_URL = '/static/' # modified
-
-STATICFILES_DIRS = [   # added
-    BASE_DIR / "static",
-]
+# Redirect unauthenticated users to login
+LOGIN_URL = '/accounts/login/'
 ```
 
-config/urls.py
-```Python
+### 5. Update `config/urls.py`
+
+```python
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from stat_pgs_tmpl import views
 
 urlpatterns = [
-    path('', views.home, name="home"),
-    path('contact/', views.contact, name="contact"),
-    path('about/', views.about, name="about"),
-    path('news/', views.news, name="news"),
+    path('admin/', admin.site.urls),
+
+    path('', views.home, name='home'),
+   
+    path('accounts/', include('accounts.urls')),
+
+    path('home/', views.home),
+    path('contact/', views.contact),
+    path('about/', views.about),
+    path('news/', views.news),
 ]
-
 ```
 
-templates/stat_pgs_tmpl/base.html
-```HTML
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
+### 6. Run migrations
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My cool website with templates {% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'stat_pgs_tmpl/css/daisyui.css'%}" type="text/css">
-    <script src="{% static 'stat_pgs_tmpl/js/tailwindcss@4.js'%}"></script>
-    <link rel="stylesheet" href="{% static 'stat_pgs_tmpl/css/themes.css'%}" type="text/css">
-    <html lang="en" data-theme="{{ theme }}"></html>
-</head>
-
-<body>
-    <header>
-        <div class="navbar bg-base-100 shadow-sm">
-            
-                <a class="btn btn-ghost text-xl" href="/">Home</a>
-                <a class="btn btn-ghost text-xl" href="/contact/">Contact</a>
-                <a class="btn btn-ghost text-xl" href="/about/">About Us</a>
-                <a class="btn btn-ghost text-xl" href="/news/">Our News</a>
-            
-        </div>
-
-        
-    </header>
-    <h1 class="text-4xl font-bold text-primary">{% block h1 %}My H1{% endblock %}</h1>
-    <h2 class="text-2xl font-semibold text-neutral">{% block h2 %}My H2{% endblock %}</h2>
-    <p class="py-4 text-base-content">{%block p %} My paragraph{% endblock %}</p>
-    <main>
-        {% block main %}My Main Content{% endblock %}
-    </main>
-
-</body>
-</html>
+```bash
+python manage.py migrate
 ```
 
-templates/stat_pgs_tmpl/home.html
-```HTML
-{% extends 'stat_pgs_tmpl/base.html' %}
+### 7. Start the development server
 
-{% block title %}Home{% endblock %}
-
-{% block h1 %}Welcome to the ComIT Course{% endblock %}
-{% block h2 %}Visit around{% endblock %}
-{% block p %}Our February 2026 - May 2026 Cohort{% endblock %}
-
-{% block main %}
-<ol>
-  <li>Name of the Course: {{ name }}</li>
-  <li>Students quantity: {{ students }}</li>
-
-  <li>
-    Students Names:
-    {% for student in names %}
-      {{ student }}{% if not forloop.last %}, {% endif %}
-    {% endfor %}
-  </li>
-
-  <li>Status: {{ is_active|yesno:"Active,Inactive" }}</li>
-</ol>
-{% endblock %}
+```bash
+python manage.py runserver
 ```
 
-stat_pgs_tmpl/views.py
+---
 
-```Python
-from django.shortcuts import render
+## 📸 Preview
 
-def home(request):
-    ctx = {
-        "theme": "cupcake",
-        "name": "ComIT",
-        "students": 10,
-        "names": ["Bob", "Sarah", "Don", "Inna", "Alex", "Tim", "Greg", "Anna", "Ryan", "Sam"],
-        "is_active": True
-    }
-    return render(request, 'stat_pgs_tmpl/home.html', ctx)
+### Login
+![Login page](static/stat_pgs_tmpl/image/Login.png)
 
+### Dashboard
+![Dashboard page](static/stat_pgs_tmpl/image/Dashboard.png)
 
-def contact(request):
-  ctx = {
-     "theme": "retro",
-     "medias": ["Facebook", "LinkedIn", "Instagram", "Telegram"]
-  }
-  return render(request, 'stat_pgs_tmpl/contact.html', ctx)
+### Home
+![Home page](static/stat_pgs_tmpl/image/Home.png)
 
+### Contact
+![Contact](static/stat_pgs_tmpl/image/Contact.png)
 
-def about(request):
-    ctx = {
-        "theme": "valentine"
-    }
-    return render(request, 'stat_pgs_tmpl/about.html', ctx)
+### About
+![About](static/stat_pgs_tmpl/image/About.png)
 
-
-def news(request):
-    ctx = {
-        "theme": "caramellatte",
-        "news": ["February", "March", "April"]
-    }
-    return render(request, 'stat_pgs_tmpl/news.html', ctx)
-
-```
-
-### Rendering
-
-home
-![Home page](static/stat_pgs_tmpl/image/home.png)
-
-contact
-![Contact](static/stat_pgs_tmpl/image/contact.png)
-
-about
-![About](static/stat_pgs_tmpl/image/about.png)
-
-news
-![News](static/stat_pgs_tmpl/image/news.png)
+### News
+![News](static/stat_pgs_tmpl/image/News.png)
