@@ -109,13 +109,13 @@ python manage.py runserver
 ![Dashboard page](static/stat_pgs_tmpl/image/Dashboard.png)
 
 ### Home 
-![Home page](static/stat_pgs_tmpl/image/Home.png)
+![Home page](static/stat_pgs_tmpl/image/home.png)
 
 ### Contact
-![Contact page](static/stat_pgs_tmpl/image/Contact.png)
+![Contact page](static/stat_pgs_tmpl/image/contact.png)
 
 ### About Us
-![About page](static/stat_pgs_tmpl/image/About.png)
+![About page](static/stat_pgs_tmpl/image/cbout.png)
 
 ### News
-![News page](static/stat_pgs_tmpl/image/News.png)
+![News page](static/stat_pgs_tmpl/image/news.png)
