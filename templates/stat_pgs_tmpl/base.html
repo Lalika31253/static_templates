@@ -1,37 +1,62 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My cool website with templates {% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'stat_pgs_tmpl/css/daisyui.css'%}" type="text/css">
+<html lang="en" data-theme="{{ theme }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}My cool website with templates{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'stat_pgs_tmpl/css/daisyui.css'%}"
+      type="text/css"
+    />
     <script src="{% static 'stat_pgs_tmpl/js/tailwindcss@4.js'%}"></script>
-    <link rel="stylesheet" href="{% static 'stat_pgs_tmpl/css/themes.css'%}" type="text/css">
-    <html lang="en" data-theme="{{ theme }}"></html>
-    <!-- <img src="{% static 'stat_pgs_tmpl/img/name.jpg'%}"" alt="descr"> -->
-</head>
+    <link
+      rel="stylesheet"
+      href="{% static 'stat_pgs_tmpl/css/themes.css'%}"
+      type="text/css"
+    />
+  </head>
 
-<body>
+  <body>
     <header>
-        <div class="navbar bg-base-100 shadow-sm">
-            
-                <a class="btn btn-ghost text-xl" href="/">Home</a>
-                <a class="btn btn-ghost text-xl" href="/contact/">Contact</a>
-                <a class="btn btn-ghost text-xl" href="/about/">About Us</a>
-                <a class="btn btn-ghost text-xl" href="/news/">Our News</a>
-            
+      <div class="navbar bg-base-100 shadow-sm">
+        <div class="flex-1">
+          <a class="btn btn-ghost text-xl" href="/">Home</a>
+          <a class="btn btn-ghost text-xl" href="/contact/">Contact</a>
+          <a class="btn btn-ghost text-xl" href="/about/">About Us</a>
+          <a class="btn btn-ghost text-xl" href="/news/">Our News</a>
         </div>
 
-        
+        <div class="flex-none gap-2">
+          {% if user.is_authenticated %}
+          <a class="btn btn-ghost text-xl" href="{% url 'accounts:dashboard' %}"
+            >Hello, {{ user.username }}</a
+          >
+          <a class="btn btn-ghost text-xl" href="{% url 'accounts:logout' %}"
+            >Logout</a
+          >
+          {% else %}
+          <a class="btn btn-ghost text-xl" href="{% url 'accounts:login' %}"
+            >Login</a
+          >
+          <a class="btn btn-ghost text-xl" href="{% url 'accounts:register' %}"
+            >Register</a
+          >
+          {% endif %}
+        </div>
+      </div>
     </header>
-    <h1 class="text-4xl font-bold text-primary">{% block h1 %}My H1{% endblock %}</h1>
-    <h2 class="text-2xl font-semibold text-neutral">{% block h2 %}My H2{% endblock %}</h2>
-    <p class="py-4 text-base-content">{%block p %} My paragraph{% endblock %}</p>
-    <main>
-        {% block main %}My Main Content{% endblock %}
-    </main>
 
-</body>
+    <h1 class="text-4xl font-bold text-primary">
+      {% block h1 %}My H1{% endblock %}
+    </h1>
+    <h2 class="text-2xl font-semibold text-neutral">
+      {% block h2 %}My H2{% endblock %}
+    </h2>
+    <p class="py-4 text-base-content">
+      {% block p %}My paragraph{% endblock %}
+    </p>
+    <main>{% block main %}My Main Content{% endblock %}</main>
+  </body>
 </html>

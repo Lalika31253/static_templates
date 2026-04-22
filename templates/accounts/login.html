@@ -1,19 +1,58 @@
-<!DOCTYPE html>
-<html>
-<head><title>Login</title></head>
-<body>
-  <h1>Login</h1>
-  {% for message in messages %}
-    <p>{{ message }}</p>
-  {% endfor %}
-  <form method="post">
-    {% csrf_token %}
-    <label for="username">Username:</label><br>
-    <input type="text" id="username" name="username" required><br><br>
-    <label for="password">Password:</label><br>
-    <input type="password" id="password" name="password" required><br><br>
-    <button type="submit">Login</button>
-  </form>
-  <p>Don't have an account? <a href="{% url 'accounts:register' %}">Register</a></p>
-</body>
-</html>
+{% extends 'base.html' %} {% block title %}Login{% endblock %} {% block h1 %}
+<div class="text-center mt-6 text-primary">Welcome Back</div>
+{% endblock %} {% block h2 %}
+<div class="text-center text-lg text-base-content/80 mt-2 px-6 leading-relaxed">
+  Login to your account
+</div>
+{% endblock %} {% block p %}{% endblock %} {% block main %}
+<div class="flex justify-center mt-10 px-4">
+  <div class="card w-full max-w-md bg-base-200 shadow-xl p-6 rounded-box">
+    {% for message in messages %}
+    <div class="alert alert-error mb-4">
+      <span>{{ message }}</span>
+    </div>
+    {% endfor %}
+
+    <form method="post" class="space-y-4">
+      {% csrf_token %}
+
+      <div class="form-control">
+        <label class="label" for="username">
+          <span class="label-text">Username</span>
+        </label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          required
+          class="input input-bordered w-full"
+          placeholder="Enter your username"
+        />
+      </div>
+
+      <div class="form-control">
+        <label class="label" for="password">
+          <span class="label-text">Password</span>
+        </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          class="input input-bordered w-full"
+          placeholder="Enter your password"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary w-full mt-2">Login</button>
+    </form>
+
+    <p class="text-center text-sm text-base-content/60 mt-4">
+      Don't have an account?
+      <a href="{% url 'accounts:register' %}" class="text-primary font-medium"
+        >Register</a
+      >
+    </p>
+  </div>
+</div>
+{% endblock %}

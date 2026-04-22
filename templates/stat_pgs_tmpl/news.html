@@ -1,29 +1,37 @@
-{% extends 'base.html' %}
-
+{% extends 'base.html' %} 
 {% block title %}News{% endblock %}
 
-{% block h1 %}The latest ComIT news{% endblock %}
+{% block h1 %}
+<div class="text-center mt-6 text-primary">The latest ComIT news</div>
+{% endblock %} 
 
 {% block h2 %}
-and resources of interest
-{% endblock %}
+<div class="text-center text-lg text-base-content/80 mt-2 px-6 leading-relaxed">
+  and resources of interest
+</div>
+{% endblock %} 
 
 {% block p %}
-We are learning how to build web apps using Python.
-{% endblock %}
+<div class="text-center text-base-content mt-4 px-8">
+  We are learning how to build web apps using Python.
+</div>
+{% endblock %} 
 
 {% block main %}
-<ol>
-  <li>
-    {% for i in news %}
-      {{ i }}{% if not forloop.last %}, {% endif %}
-    {% endfor %}
-  </li>
-</ol>
+<div class="flex justify-center mt-10 px-4">
+  <div class="card w-full max-w-2xl bg-base-200 shadow-xl p-6 rounded-box">
+    <h3 class="flex justify-center text-xl font-bold text-primary mb-4">
+      News
+    </h3>
 
-<hr>
-<h1>Hello, {{ user.username }}!</h1>
-<p>Welcome to your Contact page.</p>
-<br>
-<a href="{% url 'accounts:logout' %}"><button>Logout</button></a>
+    <ul class="space-y-3">
+      {% for i in news %}
+      <li class="flex items-center gap-3 border-b border-base-300 pb-3">
+        <span class="w-2 h-2 rounded-full bg-primary flex-shrink-0"></span>
+        <span class="text-base-content font-medium">{{ i }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
 {% endblock %}

@@ -1,23 +1,38 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
+{% block title %}Contact{% endblock %} 
 
-{% block title %}Contact{% endblock %}
+{% block h1 %}
+<div class="text-center mt-6 text-primary">Let's get in touch</div>
+{% endblock %} 
 
-{% block h1 %}Let's get in touch{% endblock %}
-{% block h2 %}Social Media{% endblock %}
-{% block p %}We will be glad to hear any feedback from you{% endblock %}
+{% block h2 %}
+<div class="text-center text-lg text-base-content/80 mt-2 px-6 leading-relaxed">
+  We'd love to hear from you
+</div>
+{% endblock %}
+
+{% block p %}
+<div class="text-center text-base-content mt-4 px-8">
+  We will be glad to hear any feedback from you.
+</div>
+{% endblock %}
 
 {% block main %}
-<ol>
-  <li>
-    {% for media in medias %}
-      {{ media }}{% if not forloop.last %}, {% endif %}
-    {% endfor %}
-  </li>
-</ol>
+<div class="flex justify-center mt-10">
+  <div class="card w-full max-w-2xl bg-base-200 shadow-xl p-6 rounded-box">
+    <h3 class="flex justify-center text-xl font-bold text-primary mb-4">
+      Follow us
+    </h3>
 
-<hr>
-<h1>Hello, {{ user.username }}!</h1>
-<p>Welcome to your Contact page.</p>
-<br>
-<a href="{% url 'accounts:logout' %}"><button>Logout</button></a>
+    <ul class="flex flex-wrap justify-center gap-3 mt-2">
+      {% for media in medias %}
+      <li class="badge badge-outline p-3 text-base">{{ media }}</li>
+      {% endfor %}
+    </ul>
+
+    <div class="mt-6 flex justify-center">
+      <a href="/about/" class="btn btn-primary btn-sm"> About Us </a>
+    </div>
+  </div>
+</div>
 {% endblock %}
