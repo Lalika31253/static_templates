@@ -108,14 +108,14 @@ python manage.py runserver
 ### Dashboard
 ![Dashboard page](static/stat_pgs_tmpl/image/Dashboard.png)
 
-### Home
+### Home 
 ![Home page](static/stat_pgs_tmpl/image/Home.png)
 
 ### Contact
-![Contact](static/stat_pgs_tmpl/image/Contact.png)
+![Contact page](static/stat_pgs_tmpl/image/Contact.png)
 
-### About
-![About](static/stat_pgs_tmpl/image/About.png)
+### About Us
+![About page](static/stat_pgs_tmpl/image/About.png)
 
 ### News
-![News](static/stat_pgs_tmpl/image/News.png)
+![News page](static/stat_pgs_tmpl/image/News.png)
