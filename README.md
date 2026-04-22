@@ -115,7 +115,7 @@ python manage.py runserver
 ![Contact page](static/stat_pgs_tmpl/image/contact.png)
 
 ### About Us
-![About page](static/stat_pgs_tmpl/image/cbout.png)
+![About page](static/stat_pgs_tmpl/image/about.png)
 
 ### News
 ![News page](static/stat_pgs_tmpl/image/news.png)
