@@ -1,9 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head><title>Dashboard</title></head>
-<body>
-  <h1>Hello, {{ user.username }}!</h1>
-  <p>Welcome to your dashboard.</p>
-  <a href="{% url 'accounts:logout' %}">Logout</a>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block h1 %}
+<div class="text-center mt-6 text-primary">Dashboard</div>
+{% endblock %}
+
+{% block h2 %}
+<div class="text-center text-lg text-base-content/80 mt-2 px-6 leading-relaxed">
+    Welcome back, {{ user.username }}!
+</div>
+{% endblock %}
+
+{% block p %}{% endblock %}
+
+{% block main %}
+<div class="flex justify-center mt-10 px-4">
+    <div class="card w-full max-w-2xl bg-base-200 shadow-xl p-6 rounded-box">
+        <h3 class="text-xl font-bold text-primary mb-4">👤 Your Account</h3>
+
+        <ul class="space-y-3">
+            <li class="flex justify-between border-b border-base-300 pb-2">
+                <span class="text-base-content/60">Username</span>
+                <span class="font-medium">{{ user.username }}</span>
+            </li>
+            <li class="flex justify-between">
+                <span class="text-base-content/60">Joined</span>
+                <span class="font-medium">{{ user.date_joined|date:"F j, Y" }}</span>
+            </li>
+        </ul>
+
+        <div class="mt-6 flex justify-end">
+            <a href="{% url 'accounts:logout' %}" class="btn btn-outline btn-sm">Logout</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

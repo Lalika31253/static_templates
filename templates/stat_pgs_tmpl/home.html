@@ -1,29 +1,54 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
+{% block title %}Home{% endblock %} 
 
-{% block title %}Home{% endblock %}
+{% block h1 %}
+<div class="text-center mt-6 text-primary">Welcome to the ComIT Course</div>
+{% endblock %} 
 
-{% block h1 %}Welcome to the ComIT Course{% endblock %}
-{% block h2 %}Visit around{% endblock %}
-{% block p %}Our February 2026 - May 2026 Cohort{% endblock %}
+{% block h2 %}
+<div class="text-center text-lg text-base-content/80 mt-2 px-6 leading-relaxed">
+  Visit around
+</div>
+{% endblock %} 
+
+{% block p %}
+<div class="text-center text-base-content mt-4 px-8">
+  Our February 2026 - May 2026 Cohort
+</div>
+{% endblock %} 
 
 {% block main %}
-<ol>
-  <li>Name of the Course: {{ name }}</li>
-  <li>Students quantity: {{ students }}</li>
+<div class="flex justify-center mt-10">
+  <div class="card w-full max-w-2xl bg-base-200 shadow-xl p-6 rounded-box">
+    <h3 class="text-xl font-bold text-primary mb-4">Course Details</h3>
 
-  <li>
-    Students Names:
-    {% for student in names %}
-      {{ student }}{% if not forloop.last %}, {% endif %}
-    {% endfor %}
-  </li>
+    <ul class="space-y-3">
+      <li class="flex justify-between border-b border-base-300 pb-2">
+        <span class="text-base-content/60">Course Name</span>
+        <span class="font-medium">{{ name }}</span>
+      </li>
+      <li class="flex justify-between border-b border-base-300 pb-2">
+        <span class="text-base-content/60">Students</span>
+        <span class="font-medium">{{ students }}</span>
+      </li>
+      <li class="flex justify-between border-b border-base-300 pb-2">
+        <span class="text-base-content/60">Status</span>
+        <span
+          class="font-medium {{ is_active|yesno:'badge-success,badge-error' }}"
+        >
+          {{ is_active|yesno:"Active,Inactive" }}
+        </span>
+      </li>
+    </ul>
 
-  <li>Status: {{ is_active|yesno:"Active,Inactive" }}</li>
-</ol>
-
-<hr>
-<h1>Hello, {{ user.username }}!</h1>
-<p>Welcome to your Contact page.</p>
-<br>
-<a href="{% url 'accounts:logout' %}"><button>Logout</button></a>
+    <h3 class="text-xl font-bold text-primary mb-4">🎓 Students</h3>
+    <div class="flex flex-wrap justify-center gap-3">
+      {% for student in names %}
+      <span class="badge-outline p-3 text-base">{{ student }}</span>
+      {% if not forloop.last %}
+      <span class="text-base-content/40 self-center">|</span>
+      {% endif %} {% endfor %}
+    </div>
+  </div>
+</div>
 {% endblock %}
